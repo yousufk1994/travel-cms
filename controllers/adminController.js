@@ -47,7 +47,7 @@ exports.adminLogin = async (req, res) => {
     // Check if admin exists
     const admin = await Admin.findOne({ email });
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Your Credentials is invalid' });
     }
 
     // Check password
@@ -55,21 +55,21 @@ exports.adminLogin = async (req, res) => {
     // if (!isMatch) {
     //   return res.status(401).json({ message: 'Invalid password' });
     // }
-    if(!admin.password === password){
+    if(admin.password !== password){
       return res.status(401).json({ message: 'Invalid password' });
     }
 
+   
+
     // Sign and send token
     const payload = {
-      user: {
         id: admin.id,
         role: 'admin' // You can include user role
-      }
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30m' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5m' });
 
-    res.json({ token, message: 'Login successful' });
+    res.status(200).json({ token, message: 'Login successful' });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
