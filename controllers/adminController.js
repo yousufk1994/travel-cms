@@ -5,7 +5,7 @@ const Admin = require('../models/Admin'); // Your admin model
 // Create a new admin
 exports.createAdmin = async (req, res) => {
   const { fullName, email, password } = req.body;
-  console.log(fullName, email, password)
+
   try {
     const newAdmin = new Admin({ fullName, email, password });
     await newAdmin.save();
@@ -41,7 +41,6 @@ exports.deleteAdmin = async (req, res) => {
 
 exports.adminLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email,password)
   
   try {
     // Check if admin exists
