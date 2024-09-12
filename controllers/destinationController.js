@@ -5,18 +5,12 @@ exports.createDestination = async (req, res) => {
   const {
     title,
     description,
-    packagePrice,
-    packageCategory,
-    location,
     destinationImage,
   } = req.body;
   try {
     const newDestination = new Destination({
       title,
       description,
-      packagePrice,
-      packageCategory,
-      location,
       destinationImage,
     });
     await newDestination.save();
