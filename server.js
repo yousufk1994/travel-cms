@@ -22,7 +22,12 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 // Use Routes
+app.use('/',(req,res)=>{
+  res.status(200).send('<h1>Welcome to Japanese Travel App</h1>')
+})
 app.use("/api/users", userRoutes);
 app.use("/api/admins", adminRoutes);
 app.use("/api/bookings", bookingRoutes);
@@ -31,6 +36,13 @@ app.use("/api/coupons", couponRoutes);
 app.use("/api/destinations", destinationRoutes);
 app.use("/api/maps", mapRoutes);
 app.use('/api/tours',tourRoutes)
+
+// All other routes
+app.use((req, res, next) => {
+  res.status(404).json({
+    error: "The requested endpoint does not exist."
+  });
+});
 
 // Connect to MongoDB
 const connectDB = async () => {
